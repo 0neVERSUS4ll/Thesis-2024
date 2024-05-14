@@ -12,6 +12,8 @@ import { AuthContext } from "./context/AuthContext";
 import Register from "./pages/register/Register";
 import ListProduct from "./pages/listProduct/ListProduct";
 import ListOrder from "./pages/listOrder/ListOrder";
+import NewQuiz from "./pages/newQuiz/NewQuiz";
+import ViewQuiz from "./pages/viewquiza/ViewQuiz";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -73,10 +75,10 @@ function App() {
                 }
               />
               <Route
-                path=":productId"
+                path="view/:quizId"
                 element={
                   <RequireAuth>
-                    <Single />
+                    <ViewQuiz />
                   </RequireAuth>
                 }
               />
@@ -84,7 +86,7 @@ function App() {
                 path="new"
                 element={
                   <RequireAuth>
-                    <New inputs={quizInputs} title="Add New Product" />
+                    <NewQuiz inputs={quizInputs} title="Add New Quiz" />
                   </RequireAuth>
                 }
               />
