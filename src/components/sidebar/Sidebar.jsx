@@ -1,26 +1,31 @@
 import "./sidebar.scss";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
-import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import StoreIcon from "@mui/icons-material/Store";
-import InsertChartIcon from "@mui/icons-material/InsertChart";
-import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
-import SettingsSystemDaydreamOutlinedIcon from "@mui/icons-material/SettingsSystemDaydreamOutlined";
-import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
+import LoginIcon from '@mui/icons-material/Login';
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import LockIcon from '@mui/icons-material/Lock';
 import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext, useState, useEffect } from "react";
 import { logOutUser, user_is_login } from "../../firebaseMethods";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 
 const Sidebar = () => {
   const navigate = useNavigate();
   let [flag, setFlag] = useState(true);
   const { dispatch } = useContext(DarkModeContext);
+  let isAdmin = true;
+  let {currentUser} = useContext(AuthContext);
+  
+  if(currentUser.email === "adam@adam.com"){
+    isAdmin = true;
+  } else {
+    isAdmin = false;
+  }
 
   useEffect(() => {
       user_is_login()
@@ -58,13 +63,20 @@ const Sidebar = () => {
             </li>
           </Link>
           <p className="title">LISTS</p>
-          <Link to="/users" style={{ textDecoration: "none" }}>
+          {isAdmin ? (
+            <Link to="/users" style={{ textDecoration: "none" }}>
+              <li>
+                <PersonOutlineIcon className="icon" />
+                <span>Users</span>
+              </li>
+            </Link>
+          ) : (
             <li>
-              <PersonOutlineIcon className="icon" />
-              <span>Users</span>
-            </li>
-          </Link>
-          <Link to="/products" style={{ textDecoration: "none" }}>
+              <LockIcon className="icon" />
+            <span>No Access</span>
+          </li>
+          )}          
+          <Link to="/quizes" style={{ textDecoration: "none" }}>
             <li>
               <StoreIcon className="icon" />
               <span>Quiz</span>
@@ -76,10 +88,6 @@ const Sidebar = () => {
               <span>Simulation</span>
             </li>
           </Link>
-          {/* <li>
-            <LocalShippingIcon className="icon" />
-            <span>Delivery</span>
-          </li> */}
           <p className="title">USER</p>
           <li>
             <AccountCircleOutlinedIcon className="icon" />
@@ -91,7 +99,13 @@ const Sidebar = () => {
               <span onClick={signOutUser}>Logout</span>
             </li>            
           ) : (
-              console.log(flag)
+              // console.log(flag)
+              <Link to="/login" style={{ textDecoration: "none" }}>
+                <li>
+                  <LoginIcon className="icon" />
+                  <span>Login</span>
+                </li>
+              </Link>
           )}
         </ul>
       </div>

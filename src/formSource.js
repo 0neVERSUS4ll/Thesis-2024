@@ -75,3 +75,41 @@ export const userInputs = [
     },
   ];
   
+export const quizInputs = [
+  {
+    id: "question",
+    label: "Question",
+    type: "text",
+    placeholder: "What is the capital of France?",
+  },
+  {
+    id: "optionA",
+    label: "Option A",
+    type: "text",
+    placeholder: "Paris",
+  },
+  {
+    id: "optionB",
+    label: "Option B",
+    type: "text",
+    placeholder: "London",
+  },
+  {
+    id: "optionC",
+    label: "Option C",
+    type: "text",
+    placeholder: "Berlin",
+  },
+  {
+    id: "optionD",
+    label: "Option D",
+    type: "text",
+    placeholder: "Madrid",
+  },
+  {
+    id: "answer",
+    label: "Answer",
+    type: "text",
+    placeholder: "Paris",
+  },
+];

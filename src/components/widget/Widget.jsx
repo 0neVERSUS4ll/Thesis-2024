@@ -63,8 +63,8 @@ const Widget = ({ type }) => {
       break;
     case "product":
       data = {
-        title: "PRODUCTS",
-        query:"products",
+        title: "quizes",
+        query:"quizes",
         link: "See details",
         icon: (
           <AccountBalanceWalletOutlinedIcon

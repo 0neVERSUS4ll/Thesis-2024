@@ -4,7 +4,7 @@ import List from "./pages/list/List";
 import Single from "./pages/single/Single";
 import New from "./pages/new/New";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { productInputs, userInputs } from "./formSource";
+import { productInputs, userInputs, quizInputs } from "./formSource";
 import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
@@ -63,7 +63,7 @@ function App() {
                 }
               />
             </Route>
-            <Route path="products">
+            <Route path="quizes">
               <Route
                 index
                 element={
@@ -84,7 +84,7 @@ function App() {
                 path="new"
                 element={
                   <RequireAuth>
-                    <New inputs={productInputs} title="Add New Product" />
+                    <New inputs={quizInputs} title="Add New Product" />
                   </RequireAuth>
                 }
               />
