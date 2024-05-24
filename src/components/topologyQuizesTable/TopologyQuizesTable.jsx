@@ -56,9 +56,14 @@ const TopologyQuizesTable = () => {
                 return (
                     <div className="cellAction">
                         {isAdmin ? (
+                            <>
                             <div className="deleteButton" onClick={() => handleDelete(params.row.id)}>
                                 Delete
                             </div>
+                            <Link to={`/topologyQuizes/edit/${params.row.id}`} className="editButton" style={{textDecoration: "none"}}>
+                                Edit
+                            </Link>
+                            </>
                         ) : null}
                         <Link to={`/topologyQuizes/${params.row.id}`} className="viewButton" style={{textDecoration: "none"}}>
                             View

@@ -16,6 +16,8 @@ import NewQuiz from "./pages/newQuiz/NewQuiz";
 import ViewQuiz from "./pages/viewquiza/ViewQuiz";
 import NewTopologyQuiz from "./pages/newTopologyQuiz/NewTopologyQuiz";
 import ViewTopologyQuiz from "./pages/viewTopologyquizza/ViewTopologyQuiz";
+import UpdateQuiz from "./pages/editQuiz/EditQuiz";
+import UpdateTopologyQuiz from "./pages/editTopologyQuiz/EditTopologyQuiz";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -92,6 +94,14 @@ function App() {
                   </RequireAuth>
                 }
               />
+              <Route
+                path="edit/:quizId"
+                element={
+                  <RequireAuth>
+                    <UpdateQuiz inputs={quizInputs} title="Edit Quiz" />                    
+                  </RequireAuth>
+                }
+              />
             </Route>
             <Route path="topologyQuizes">
               <Route
@@ -115,6 +125,14 @@ function App() {
                 element={
                   <RequireAuth>
                     <NewTopologyQuiz inputs={topologyQuizInputs} title="Add New Order" />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="edit/:quizId"
+                element={
+                  <RequireAuth>
+                    <UpdateTopologyQuiz inputs={topologyQuizInputs} title="Edit Order" />
                   </RequireAuth>
                 }
               />

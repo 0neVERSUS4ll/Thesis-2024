@@ -22,11 +22,7 @@
         border-radius: 5px;
         cursor: pointer;
       }
-    }
-    
-    .datagrid {
-        display: flex;
-    }
+    }    
     
     .quiz-box {
         border: 1px solid #000;
@@ -35,7 +31,7 @@
         display: flex;
         justify-content: space-between;
         
-        .cellAction {
+      .cellAction {
             display: flex;
             align-items: center;
             gap: 15px;
@@ -53,6 +49,14 @@
             border-radius: 5px;
             color: crimson;
             border: 1px dotted rgba(220, 20, 60, 0.6);
+            cursor: pointer;
+        }
+
+        .editButton {
+            padding: 2px 5px;
+            border-radius: 5px;
+            color: green;
+            border: 1px dotted rgba(1, 231, 55, 0.596);
             cursor: pointer;
         }
       }

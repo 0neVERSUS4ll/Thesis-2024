@@ -56,9 +56,14 @@ const QuizesTable = () => {
             return (
               <div className="cellAction">
                 {isAdmin ? (
+                  <>
                   <div className="deleteButton" onClick={() => handleDelete(params.row.id)}>
                     Delete
                   </div>
+                  <Link to={`/quizes/edit/${params.row.id}`} className="editButton" id="edit-button" style={{textDecoration: "none"}}>
+                      Edit
+                  </Link>
+                  </>
                 ): null}
                   <Link to={`/quizes/view/${params.row.id}`} className="viewButton" style={{textDecoration: "none"}}>
                     View
