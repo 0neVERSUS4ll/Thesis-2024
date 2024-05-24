@@ -37,3 +37,27 @@ export const userColumns = [
     },
   },
 ];
+
+export const quizColumns = [
+  { field: 'id', headerName: 'ID', width: 70 },
+  { field: 'question', 
+    headerName: 'Question', 
+    width: 700,
+    renderCell: (params) => {
+      return (
+        <div className="cellWithImg">
+          <img className="cellImg" src={params.row.img} alt="avatar" />
+          {params.row.question}
+        </div>
+      );
+    },
+  },
+];
+
+export const quizNetworkColumns = [
+  { field: 'id', headerName: 'ID', width: 70 },
+  { field: 'question', 
+    headerName: 'Question', 
+    width: 700,
+  },
+];

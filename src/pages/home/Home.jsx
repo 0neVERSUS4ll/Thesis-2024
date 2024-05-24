@@ -12,7 +12,8 @@ const Home = () => {
     <div className="home">
       <Sidebar />
       <div className="homeContainer">
-        <Navbar />                
+        <Navbar />
+        This Is A Study Platform that Teaches User about Computer Network and Network Security, Enjoy!                
       </div>
     </div>
   );

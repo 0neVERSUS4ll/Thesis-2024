@@ -1,7 +1,7 @@
 import "./listOrder.scss"
 import Sidebar from "../../components/sidebar/Sidebar"
 import Navbar from "../../components/navbar/Navbar"
-import Datatable from "../../components/datatable/Datatable"
+import TopologyQuizesTable from "../../components/topologyQuizesTable/TopologyQuizesTable"
 
 const ListOrder = () => {
   return (
@@ -9,7 +9,7 @@ const ListOrder = () => {
       <Sidebar/>
       <div className="listOrderContainer">
         <Navbar/>
-        This is the list order page
+        <TopologyQuizesTable/>
       </div>
     </div>
   )

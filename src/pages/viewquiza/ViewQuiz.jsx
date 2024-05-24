@@ -15,6 +15,7 @@ const ViewQuiz = () => {
   const navigate  = useNavigate();
   let {currentUser} = useContext(AuthContext);
   let isAdmin = true;
+  const [explanation, setExplanation] = useState(null);
 
   if(currentUser.email === "adam@adam.com"){
     isAdmin = true;
@@ -37,11 +38,15 @@ const ViewQuiz = () => {
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
-    setIsCorrect(option === quiz.answer);
+    const correct = option === quiz.answer;
+    setIsCorrect(correct);
+    if (correct) {
+      setExplanation(quiz.explanation);
+    }
   };
 
   return (
-    <div className="quiz-view">
+    <div className="quiz-view">      
       <button onClick={() => navigate("/quizes")}>Back</button>  
       {quiz && (
         <div className="quiz-box">
@@ -55,10 +60,15 @@ const ViewQuiz = () => {
             </button>
           ))}
           {selectedOption && (
-            <p>
-              You selected {selectedOption}. This is{" "}
-              {isCorrect ? "correct" : "incorrect"}.
-            </p>
+            <div>
+              <p>
+                You selected {selectedOption}. This is{" "}
+                {isCorrect ? "correct" : "incorrect"}.
+              </p>
+              {isCorrect && explanation && (
+                <p>Explanation: {explanation}</p>
+              )}
+            </div>
           )}
         </div>
       )}

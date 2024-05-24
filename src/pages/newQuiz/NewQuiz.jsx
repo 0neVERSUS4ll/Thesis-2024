@@ -33,29 +33,29 @@ const NewQuiz = ({ inputs, title }) => {
         <Sidebar />
         <div className="newContainer">
             <Navbar />
-        <div className="top">
-          <h1>{title}</h1>
-        </div>
-        <div className="bottom">
-          <div className="right">
-            <form onSubmit={handleAdd}>
-              {inputs.map((input) => (
-                <div className="formInput" key={input.id}>
-                  <label>{input.label}</label>
-                  <input
-                    id={input.id}
-                    type={input.type}
-                    placeholder={input.placeholder}
-                    onChange={handleInput}
-                  />
-                </div>
-              ))}
-              <button type="submit">Send</button>
-            </form>
+          <div className="top">
+            <h1>{title}</h1>
+          </div>
+          <div className="bottom">
+            <div className="right">
+              <form onSubmit={handleAdd}>
+                {inputs.map((input) => (
+                  <div className="formInput" key={input.id}>
+                    <label>{input.label}</label>
+                    <input
+                      id={input.id}
+                      type={input.type}
+                      placeholder={input.placeholder}
+                      onChange={handleInput}
+                    />
+                  </div>
+                ))}
+                <button type="submit">Send</button>
+              </form>
+            </div>
           </div>
         </div>
       </div>
-    </div>
   );
 };
 

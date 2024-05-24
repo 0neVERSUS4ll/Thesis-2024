@@ -26,10 +26,10 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <div className="wrapper">
-        <div className="search">
+        {/* <div className="search">
           <input type="text" placeholder="Search..." />
           <SearchOutlinedIcon />
-        </div>
+        </div> */}
         {flag ? (
           <div className="user-identifier">
             <h1>Hello, Admin</h1>
@@ -39,7 +39,7 @@ const Navbar = () => {
             <h1>Hello, User</h1>
           </div>
         )}        
-        <div className="items">
+        {/* <div className="items">
           <div className="item">
             <LanguageOutlinedIcon className="icon" />
             English
@@ -71,7 +71,7 @@ const Navbar = () => {
               className="avatar"
             />
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

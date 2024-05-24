@@ -6,6 +6,8 @@ import StoreIcon from "@mui/icons-material/Store";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import LoginIcon from '@mui/icons-material/Login';
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import LanIcon from '@mui/icons-material/Lan';
+import HubIcon from '@mui/icons-material/Hub';
 import LockIcon from '@mui/icons-material/Lock';
 import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
@@ -49,7 +51,7 @@ const Sidebar = () => {
     <div className="sidebar">
       <div className="top">
         <Link to="/" style={{ textDecoration: "none" }}>
-          <span className="logo">lamadmin</span>
+          <span className="logo">Network Study Platform</span>
         </Link>
       </div>
       <hr />
@@ -78,21 +80,21 @@ const Sidebar = () => {
           )}          
           <Link to="/quizes" style={{ textDecoration: "none" }}>
             <li>
-              <StoreIcon className="icon" />
-              <span>Quiz</span>
+              <HubIcon className="icon" />
+              <span>Network-Quiz</span>
             </li>
           </Link>
-          <Link to="/order" style={{ textDecoration: "none" }}>
+          <Link to="/topologyQuizes" style={{ textDecoration: "none" }}>
             <li>
-              <CreditCardIcon className="icon" />
-              <span>Simulation</span>
+              <LanIcon className="icon" />
+              <span>Topology-Quiz</span>
             </li>
           </Link>
           <p className="title">USER</p>
-          <li>
+          {/* <li>
             <AccountCircleOutlinedIcon className="icon" />
             <span>Profile</span>
-          </li>
+          </li> */}
           {flag ? (
             <li>
               <ExitToAppIcon className="icon" />

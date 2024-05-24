@@ -4,7 +4,7 @@ import List from "./pages/list/List";
 import Single from "./pages/single/Single";
 import New from "./pages/new/New";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { productInputs, userInputs, quizInputs } from "./formSource";
+import { userInputs, quizInputs, topologyQuizInputs } from "./formSource";
 import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
@@ -14,6 +14,8 @@ import ListProduct from "./pages/listProduct/ListProduct";
 import ListOrder from "./pages/listOrder/ListOrder";
 import NewQuiz from "./pages/newQuiz/NewQuiz";
 import ViewQuiz from "./pages/viewquiza/ViewQuiz";
+import NewTopologyQuiz from "./pages/newTopologyQuiz/NewTopologyQuiz";
+import ViewTopologyQuiz from "./pages/viewTopologyquizza/ViewTopologyQuiz";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -91,20 +93,20 @@ function App() {
                 }
               />
             </Route>
-            <Route path="order">
+            <Route path="topologyQuizes">
               <Route
                 index
                 element={
                   <RequireAuth>
                     <ListOrder />
-                  </RequireAuth>
+                  </RequireAuth>                              
                 }
               />
               <Route
-                path=":orderId"
+                path=":quizId"
                 element={
                   <RequireAuth>
-                    <Single />
+                    <ViewTopologyQuiz />
                   </RequireAuth>
                 }
               />
@@ -112,7 +114,7 @@ function App() {
                 path="new"
                 element={
                   <RequireAuth>
-                    <New inputs={userInputs} title="Add New Order" />
+                    <NewTopologyQuiz inputs={topologyQuizInputs} title="Add New Order" />
                   </RequireAuth>
                 }
               />

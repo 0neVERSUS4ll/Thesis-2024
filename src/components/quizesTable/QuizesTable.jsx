@@ -4,6 +4,8 @@ import { useContext, useEffect, useState } from "react";
 import { collection, deleteDoc, doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../firebase";
 import { AuthContext } from "../../context/AuthContext";
+import { DataGrid } from "@mui/x-data-grid";
+import { quizColumns, quizNetworkColumns } from "../../datatablesource";
 
 const QuizesTable = () => {
     const [quizData, setQuizData] = useState([]);
@@ -45,31 +47,47 @@ const QuizesTable = () => {
         }
       };
 
+      const actionColumn = [
+        {
+          field: "action",
+          headerName: "Action",
+          width: 200,
+          renderCell: (params) => {
+            return (
+              <div className="cellAction">
+                {isAdmin ? (
+                  <div className="deleteButton" onClick={() => handleDelete(params.row.id)}>
+                    Delete
+                  </div>
+                ): null}
+                  <Link to={`/quizes/view/${params.row.id}`} className="viewButton" style={{textDecoration: "none"}}>
+                    View
+                  </Link>
+              </div>
+            )
+          }
+        }
+      ];
+
     return (
         <div className="quizestable">
             <div className="quizesTableTitle">
                 Add New Quiz
-                <Link to="/quizes/new" className="link">
+                {isAdmin ? (
+                  <Link to="/quizes/new" className="link">
                     Add New
-                </Link>
-            </div>
-            <div>
-                {quizData.map((quiz) => (
-                    <div key={quiz.id} className="quiz-box">
-                        <h2>{quiz.question}</h2>
-                        <div className="cellAction">
-                            {isAdmin ? (
-                              <div className="deleteButton" onClick={() => handleDelete(quiz.id)}>
-                                Delete
-                              </div>
-                            ): null}
-                            <Link to={`/quizes/view/${quiz.id}`} className="viewButton" style={{textDecoration: "none"}}>
-                              View
-                            </Link>
-                        </div>                    
-            </div>
-        ))}
-    </div>
+                  </Link>
+                ) : null}
+            </div>            
+            <DataGrid
+                className="datagrid"
+                rows={quizData}
+                columns={[...quizNetworkColumns, ...actionColumn]}
+                pageSize={10}
+                rowsPerPageOptions={[5, 10, 20]}
+                checkboxSelection
+                // disableSelectionOnClick
+            />
         </div>
     )
 };
