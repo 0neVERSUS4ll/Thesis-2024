@@ -91,10 +91,12 @@ const Sidebar = () => {
             </li>
           </Link>
           <p className="title">USER</p>
-          {/* <li>
-            <AccountCircleOutlinedIcon className="icon" />
-            <span>Profile</span>
-          </li> */}
+          <Link to="/quizPerformance" style={{ textDecoration: "none" }}>
+            <li>
+              <AccountCircleOutlinedIcon className="icon" />
+              <span>Performa</span>
+          </li>
+          </Link>
           {flag ? (
             <li>
               <ExitToAppIcon className="icon" />

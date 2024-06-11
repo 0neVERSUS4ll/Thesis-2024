@@ -1,7 +1,7 @@
 import "./viewTopologyQuiz.scss";
 import { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import {doc, getDoc} from "firebase/firestore";
+import { Await, useNavigate, useParams } from "react-router-dom";
+import {doc, getDoc, setDoc, updateDoc} from "firebase/firestore";
 import { db } from "../../firebase";
 import { AuthContext } from "../../context/AuthContext";
 
@@ -34,12 +34,32 @@ const ViewTopologyQuiz = () => {
         fetchQuiz();
     }, [quizId]);
 
-    const handleOptionClick = (option) => {
+    const handleOptionClick = async (option) => {
         setSelectedOption(option);
         const correct = option === quiz.answer;
         setIsCorrect(correct);
         if(correct){
             setExplanation(quiz.explanation);
+        }
+
+        const quizResultRef = doc(db, "topology-quiz-results", `${currentUser.uid}_${quizId}`);
+        const quizResultSnap = await getDoc(quizResultRef);
+
+        if(quizResultSnap.exists()){
+            const attemptCount = quizResultSnap.data().attemptCount + 1;
+            await updateDoc(quizResultRef, {
+                isCorrect: correct,
+                attemptCount: attemptCount,
+                firstAttemptCorrect: attemptCount === 1 && correct,
+            });
+        } else {
+            await setDoc(quizResultRef, {
+                userId: currentUser.uid,
+                quizId,
+                isCorrect: correct,
+                attemptCount: 1,
+                firstAttemptCorrect: correct,
+            });
         }
     };
 

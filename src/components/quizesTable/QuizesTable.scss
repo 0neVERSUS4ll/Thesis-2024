@@ -2,6 +2,14 @@
     height: 600px;
     padding: 20px;
 
+    .correct-first-attempt {
+        background-color: green !important;
+    }
+
+    .incorrect-first-attempt {
+        background-color: red !important;
+    }
+
     
     .quizesTableTitle{
       width: 100%;

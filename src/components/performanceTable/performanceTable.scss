@@ -1,0 +1,26 @@
+.performance-table {
+    .performance-block {
+      h2 {
+        margin-bottom: 10px;
+      }
+  
+      p {
+        display: inline-block;
+        padding: 10px;
+        border: 1px solid #000;
+        color: #fff;
+  
+        &.high-performance {
+          background-color: green;
+        }
+  
+        &.low-performance {
+          background-color: red;
+        }
+      }
+  
+      button {
+        margin-left: 10px;
+      }
+    }
+  }

@@ -18,6 +18,7 @@ import NewTopologyQuiz from "./pages/newTopologyQuiz/NewTopologyQuiz";
 import ViewTopologyQuiz from "./pages/viewTopologyquizza/ViewTopologyQuiz";
 import UpdateQuiz from "./pages/editQuiz/EditQuiz";
 import UpdateTopologyQuiz from "./pages/editTopologyQuiz/EditTopologyQuiz";
+import ListPerformance from "./pages/listPerformance/ListPerformance";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -135,6 +136,16 @@ function App() {
                     <UpdateTopologyQuiz inputs={topologyQuizInputs} title="Edit Order" />
                   </RequireAuth>
                 }
+              />
+            </Route>
+            <Route path="quizPerformance">
+              <Route
+                index
+                element={
+                  <RequireAuth>
+                    <ListPerformance />
+                  </RequireAuth>
+                } 
               />
             </Route>
           </Route>

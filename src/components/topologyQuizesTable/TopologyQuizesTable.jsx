@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import "./TopologyQuizesTable.scss"
 import {useContext, useEffect, useState} from "react";
 import { AuthContext } from "../../context/AuthContext";
-import { collection, deleteDoc, doc, onSnapshot } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDocs, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "../../firebase";
 import { DataGrid } from "@mui/x-data-grid";
 import { quizColumns } from "../../datatablesource";
@@ -19,24 +19,40 @@ const TopologyQuizesTable = () => {
     }
 
     useEffect(() => {
-        const unsub = onSnapshot(
-            collection(db, "topology-quizzes"),
-            (snapShot) => {
-                let quizzes = [];
-                snapShot.docs.forEach((doc) => {
-                    quizzes.push({ id: doc.id, ...doc.data() });
-                });
-                setQuizData(quizzes);
-            },
-            (error) => {
-                console.log(error);
-            }
-        );
+        const fetchQuizzesAndResults = async () => {
+            const quizSnapshot = await getDocs(collection(db, "topology-quizzes"));
+            let quizzes = quizSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+            
+            const resultsSnapshot = await getDocs(query(collection(db, "topology-quiz-results"), where("userId", "==", currentUser.uid)));
+            let results = resultsSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 
-        return () => {
-            unsub();
+            quizzes = quizzes.map((quiz) => {
+                const result = results.find((result) => result.quizId === quiz.id);
+                return { ...quiz, firstAttemptCorrect: result ? result.firstAttemptCorrect : undefined};
+            });
+
+            setQuizData(quizzes);
         };
-    },[]);
+        // const unsub = onSnapshot(
+        //     collection(db, "topology-quizzes"),
+        //     (snapShot) => {
+        //         let quizzes = [];
+        //         snapShot.docs.forEach((doc) => {
+        //             quizzes.push({ id: doc.id, ...doc.data() });
+        //         });
+        //         setQuizData(quizzes);
+        //     },
+        //     (error) => {
+        //         console.log(error);
+        //     }
+        // );
+
+        // return () => {
+        //     unsub();
+        // };
+
+        fetchQuizzesAndResults();
+    },  [currentUser.uid]);
 
     const handleDelete = async (id) => {
         try {
@@ -91,6 +107,15 @@ const TopologyQuizesTable = () => {
                 pageSize={10}
                 rowsPerPageOptions={[10, 15, 20]}
                 checkboxSelection
+                getRowClassName={(params) => {
+                    if(params.row.firstAttemptCorrect === true){
+                        return 'correct-first-attempt';
+                    } else if(params.row.firstAttemptCorrect === false){
+                        return 'incorrect-first-attempt';
+                    } else {
+                        return '';
+                    }
+                }}
             />
         </div>
     )

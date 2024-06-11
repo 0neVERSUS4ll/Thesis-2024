@@ -1,11 +1,12 @@
 import "./viewQuiz.scss";
 import { useContext, useEffect, useState } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { doc, getDoc } from "firebase/firestore";
+import { Await, Navigate, useNavigate, useParams } from "react-router-dom";
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import { AuthContext } from "../../context/AuthContext";
+import { set, update } from "firebase/database";
 
 const ViewQuiz = () => {
   const { quizId } = useParams();
@@ -36,12 +37,32 @@ const ViewQuiz = () => {
     fetchQuiz();
   }, [quizId]);
 
-  const handleOptionClick = (option) => {
+  const handleOptionClick = async (option) => {
     setSelectedOption(option);
     const correct = option === quiz.answer;
     setIsCorrect(correct);
     if (correct) {
       setExplanation(quiz.explanation);
+    }
+
+    const quizResultRef = doc(db, "quiz-results", `${currentUser.uid}_${quizId}`);
+    const quizResultSnap = await getDoc(quizResultRef);
+
+    if(quizResultSnap.exists()){
+      const attemptCount = quizResultSnap.data().attemptCount + 1;
+      await updateDoc(quizResultRef, {
+        isCorrect: correct,
+        attemptCount: attemptCount,
+        firstAttemptCorrect: attemptCount === 1 && correct,
+    });
+    } else {
+      await setDoc(quizResultRef, {
+        userId: currentUser.uid,
+        quizId,
+        isCorrect: correct,
+        attemptCount: 1,
+        firstAttemptCorrect: correct,
+      });
     }
   };
 
