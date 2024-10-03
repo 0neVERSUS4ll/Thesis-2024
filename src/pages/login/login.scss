@@ -1,61 +1,71 @@
-.login{
-    height: 100vh;
+.loginWrapper {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .loginTitle {
+    font-size: 24px;
+    font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 20px;
+  }
 
-    form{
+  .login  {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-bottom: 10px;
+
+    form {
       display: flex;
       flex-direction: column;
       align-items: center;
 
-      input{
+      input {
         width: 200px;
         height: 30px;
         margin: 10px;
       }
 
-      button{
+      button {
         width: 200px;
         height: 30px;
         border: none;
+        margin-top: 10px;
         background-color: purple;
         color: white;
         font-weight: bold;
         cursor: pointer;
       }
 
-      span{
+      span {
         font-size: 12px;
         color: red;
         margin-top: 10px;
       }
     }
-}
-
-.loginToRegister{
-  display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 250px;
-    margin-top: -270px;
-  button{
-    width: 200px;
-    height: 30px;
-    border: none;
-    background-color: pink;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
   }
-}
 
-.loginTitle{
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: -250px;
-    margin-top: 250px;
+  .loginToRegister {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 20px;
+
+    button {
+      width: 200px;
+      height: 30px;
+      border: none;
+      background-color: pink;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  }
 }

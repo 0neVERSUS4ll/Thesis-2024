@@ -17,6 +17,17 @@ const Login = () => {
   const handleLogin = (e) => {
     e.preventDefault();
 
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters long.");
+      return;
+    }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+      setError("Invalid email format.");
+      return;
+    }
+
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
@@ -25,35 +36,36 @@ const Login = () => {
         navitage("/")
       })
       .catch((error) => {
-        setError(true);
+        setError("Wrong email or password!");
       });
   };
 
   
   return (
-    <><div className="loginTitle">LOGIN</div>
-    <div className="login">
-      <form onSubmit={handleLogin}>
-        <input
-          type="email"
-          placeholder="email"
-          onChange={(e) => setEmail(e.target.value)} />
-        <input
-          type="password"
-          placeholder="password"
-          onChange={(e) => setPassword(e.target.value)} />
-        <button type="submit">Login</button>
-        {error && <span>Wrong email or password!</span>}
-      </form>
+    <div className="loginWrapper">
+      <div className="loginTitle">LOGIN</div>
+      <div className="login">
+        <form onSubmit={handleLogin}>
+          <input
+            type="email"
+            placeholder="email"
+            onChange={(e) => setEmail(e.target.value)} />
+          <input
+            type="password"
+            placeholder="password"
+            onChange={(e) => setPassword(e.target.value)} />
+          <button type="submit">Login</button>
+          {error && <span>{error}</span>}
+        </form>
+      </div>
+      <div className="loginToRegister">
+        <Link to="/register" style={{ textDecoration: "none" }}>
+            <button className="icon">
+                Go To Register
+            </button>
+        </Link>
+      </div>
     </div>
-    <div className="loginToRegister">
-      <Link to="/register" style={{ textDecoration: "none" }}>
-          <button className="icon">
-              Go To Register
-          </button>
-      </Link>
-    </div>
-    </>
   );
 };
 

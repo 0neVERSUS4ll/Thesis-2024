@@ -14,6 +14,17 @@ const Register = () => {
   const handleRegister = (e) => {
     e.preventDefault();
 
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters long.");
+      return;
+    }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+      setError("Invalid email format.");
+      return;
+    }
+
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
@@ -22,36 +33,37 @@ const Register = () => {
         navitage("/login")
       })
       .catch((error) => {
-        setError(true);
+        setError("Failed to create an account. Please try again.");
       });
   };
 
 return (
-    <><div className="registerTitle">REGISTER</div>
-    <div className="Register">
-      <form onSubmit={handleRegister}>
-        <input
-          type="email"
-          placeholder="email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit">Register</button>
-        {error && <span>Wrong email or password!</span>}
-      </form>
+    <div className="registerWrapper">
+      <div className="registerTitle">REGISTER</div>
+      <div className="Register">
+        <form onSubmit={handleRegister}>
+          <input
+            type="email"
+            placeholder="email"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button type="submit">Register</button>
+          {error && <span>{error}</span>}
+        </form>
+      </div>
+      <div className="registerToLogin">
+        <Link to="/login" style={{ textDecoration: "none" }}>
+            <button className="icon">
+                Go To Login
+            </button>
+        </Link>
+      </div>
     </div>
-    <div className="registerToLogin">
-      <Link to="/login" style={{ textDecoration: "none" }}>
-          <button className="icon">
-              Go To Login
-          </button>
-      </Link>
-    </div>
-    </>
   );
 };
 

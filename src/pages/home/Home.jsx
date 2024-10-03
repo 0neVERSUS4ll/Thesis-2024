@@ -13,7 +13,22 @@ const Home = () => {
       <Sidebar />
       <div className="homeContainer">
         <Navbar />
-        This Is A Study Platform that Teaches User about Computer Network and Network Security, Enjoy!                
+        This Is A Study Platform that Teaches User about Computer Network and Network Security, Enjoy!   
+        <br />
+        <br />
+        We Have:
+        <br />
+        <br />
+        - Dashboard: which serves as a main page and the first page after login to the Application
+        <br />
+        <br />
+        - Network-Quiz: which contains many questions about computer network and network security, and the user can answer the questions and get more knowledge about network security 
+        <br />
+        <br />
+        - Topology-Quiz: which contains many questions about network topology and the user can answer the questions and get more knowledge about network topology
+        <br />
+        <br />
+        - Performa: which contains the score of the user after answering the questions in the Network-Quiz and Topology-Quiz
       </div>
     </div>
   );
