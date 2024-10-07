@@ -66,18 +66,23 @@ const Sidebar = () => {
           </Link>
           <p className="title">LISTS</p>
           {isAdmin ? (
-            <Link to="/users" style={{ textDecoration: "none" }}>
+            <><Link to="/users" style={{ textDecoration: "none" }}>
               <li>
                 <PersonOutlineIcon className="icon" />
                 <span>Users</span>
               </li>
-            </Link>
+            </Link><Link to="/learning" style={{ textDecoration: "none" }}>
+                <li>
+                  <CreditCardIcon className="icon" />
+                  <span>Learning</span>
+                </li>
+              </Link></>          
           ) : (
             <li>
               <LockIcon className="icon" />
             <span>No Access</span>
           </li>
-          )}          
+          )}
           <Link to="/quizes" style={{ textDecoration: "none" }}>
             <li>
               <HubIcon className="icon" />

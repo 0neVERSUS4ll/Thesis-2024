@@ -34,6 +34,29 @@ const ViewTopologyQuiz = () => {
         fetchQuiz();
     }, [quizId]);
 
+    const updateQuizResult = async (quizId, isCorrect) => {
+        const quizResultRef = doc(db, "topology-quiz-results", `${currentUser.uid}_${quizId}`);
+        const quizResultSnap = await getDoc(quizResultRef);
+    
+        if (quizResultSnap.exists()) {
+          const resultData = quizResultSnap.data();
+          const attemptCount = resultData.attemptCount + 1;
+          await updateDoc(quizResultRef, {
+            isCorrect: isCorrect,
+            attemptCount: attemptCount,
+            firstAttemptCorrect: resultData.firstAttemptCorrect !== undefined ? resultData.firstAttemptCorrect : (attemptCount === 1 && isCorrect),
+          });
+        } else {
+          await setDoc(quizResultRef, {
+            userId: currentUser.uid,
+            quizId: quizId,
+            isCorrect: isCorrect,
+            attemptCount: 1,
+            firstAttemptCorrect: isCorrect,
+          });
+        }
+      };
+
     const handleOptionClick = async (option) => {
         setSelectedOption(option);
         const correct = option === quiz.answer;
@@ -42,25 +65,27 @@ const ViewTopologyQuiz = () => {
             setExplanation(quiz.explanation);
         }
 
-        const quizResultRef = doc(db, "topology-quiz-results", `${currentUser.uid}_${quizId}`);
-        const quizResultSnap = await getDoc(quizResultRef);
+        await updateQuizResult(quizId, correct);
 
-        if(quizResultSnap.exists()){
-            const attemptCount = quizResultSnap.data().attemptCount + 1;
-            await updateDoc(quizResultRef, {
-                isCorrect: correct,
-                attemptCount: attemptCount,
-                firstAttemptCorrect: attemptCount === 1 && correct,
-            });
-        } else {
-            await setDoc(quizResultRef, {
-                userId: currentUser.uid,
-                quizId,
-                isCorrect: correct,
-                attemptCount: 1,
-                firstAttemptCorrect: correct,
-            });
-        }
+        // const quizResultRef = doc(db, "topology-quiz-results", `${currentUser.uid}_${quizId}`);
+        // const quizResultSnap = await getDoc(quizResultRef);
+
+        // if(quizResultSnap.exists()){
+        //     const attemptCount = quizResultSnap.data().attemptCount + 1;
+        //     await updateDoc(quizResultRef, {
+        //         isCorrect: correct,
+        //         attemptCount: attemptCount,
+        //         firstAttemptCorrect: attemptCount === 1 && correct,
+        //     });
+        // } else {
+        //     await setDoc(quizResultRef, {
+        //         userId: currentUser.uid,
+        //         quizId,
+        //         isCorrect: correct,
+        //         attemptCount: 1,
+        //         firstAttemptCorrect: correct,
+        //     });
+        // }
     };
 
     return (

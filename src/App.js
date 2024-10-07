@@ -10,6 +10,7 @@ import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import { AuthContext } from "./context/AuthContext";
 import Register from "./pages/register/Register";
+import ListLearning from "./pages/listLearning/ListLearning";
 import ListProduct from "./pages/listProduct/ListProduct";
 import ListOrder from "./pages/listOrder/ListOrder";
 import NewQuiz from "./pages/newQuiz/NewQuiz";
@@ -66,6 +67,16 @@ function App() {
                 element={
                   <RequireAuth>
                     <New inputs={userInputs} title="Add New User" />
+                  </RequireAuth>
+                }
+              />
+            </Route>
+            <Route path="learning">
+              <Route
+                index
+                element={
+                  <RequireAuth>
+                    <ListLearning />
                   </RequireAuth>
                 }
               />
