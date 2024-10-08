@@ -4,6 +4,8 @@ import { Await, useNavigate, useParams } from "react-router-dom";
 import {doc, getDoc, setDoc, updateDoc} from "firebase/firestore";
 import { db } from "../../firebase";
 import { AuthContext } from "../../context/AuthContext";
+import Sidebar from "../../components/sidebar/Sidebar";
+import Navbar from "../../components/navbar/Navbar";
 
 const ViewTopologyQuiz = () => {
     const { quizId } = useParams();
@@ -89,29 +91,35 @@ const ViewTopologyQuiz = () => {
     };
 
     return (
-        <div className="quiz-view">
-            <button onClick={() => navigate("/topologyQuizes")}>Back</button>
-            {quiz && (
-                <div className="quiz-box">
-                    <img className="cellImg" src={quiz.img} alt="avatar" />
-                    <h2>{quiz.question}</h2>
-                    {["optionA", "optionB", "optionC", "optionD"].map((optionKey) => (
-                        <button key={optionKey} onClick={() => handleOptionClick(quiz[optionKey])}>
-                            {quiz[optionKey]}
-                        </button>
-                    ))}
-                    {selectedOption && (
-                        <div>
-                            <p>
-                                You selected {selectedOption}. This is {isCorrect ? "correct" : "incorrect"}.
-                            </p>
-                            {isCorrect && {explanation} && (
-                                <p>Explanation: {explanation}</p>
+        <div className="quiz-outside-view">
+            <Sidebar />
+            <div className="quiz-inner-view">
+                <Navbar />
+                <div className="quiz-view">
+                    <button onClick={() => navigate("/topologyQuizes")}>Back</button>
+                    {quiz && (
+                        <div className="quiz-box">
+                            <img className="cellImg" src={quiz.img} alt="avatar" />
+                            <h2>{quiz.question}</h2>
+                            {["optionA", "optionB", "optionC", "optionD"].map((optionKey) => (
+                                <button key={optionKey} onClick={() => handleOptionClick(quiz[optionKey])}>
+                                    {quiz[optionKey]}
+                                </button>
+                            ))}
+                            {selectedOption && (
+                                <div>
+                                    <p>
+                                        You selected {selectedOption}. This is {isCorrect ? "correct" : "incorrect"}.
+                                    </p>
+                                    {isCorrect && {explanation} && (
+                                        <p>Explanation: {explanation}</p>
+                                    )}
+                                </div>
                             )}
                         </div>
                     )}
                 </div>
-            )}
+            </div>
         </div>
     );
 }

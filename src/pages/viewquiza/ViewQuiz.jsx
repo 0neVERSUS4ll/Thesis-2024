@@ -92,33 +92,39 @@ const ViewQuiz = () => {
   };
 
   return (
-    <div className="quiz-view">      
-      <button onClick={() => navigate("/quizes")}>Back</button>  
-      {quiz && (
-        <div className="quiz-box">
-          <h2>{quiz.question}</h2>
-          {["optionA", "optionB", "optionC", "optionD"].map((optionKey) => (
-            <button
-              key={optionKey}
-              onClick={() => handleOptionClick(quiz[optionKey])}
-            >
-              {quiz[optionKey]}
-            </button>
-          ))}
-          {selectedOption && (
-            <div>
-              <p>
-                You selected {selectedOption}. This is{" "}
-                {isCorrect ? "correct" : "incorrect"}.
-              </p>
-              {isCorrect && explanation && (
-                <p>Explanation: {explanation}</p>
+    <div className="quiz-outside-view">
+      <Sidebar />
+      <div className="quiz-inner-view">
+        <Navbar />
+        <div className="quiz-view">      
+          <button onClick={() => navigate("/quizes")}>Back</button>  
+          {quiz && (
+            <div className="quiz-box">
+              <h2>{quiz.question}</h2>
+              {["optionA", "optionB", "optionC", "optionD"].map((optionKey) => (
+                <button
+                  key={optionKey}
+                  onClick={() => handleOptionClick(quiz[optionKey])}
+                >
+                  {quiz[optionKey]}
+                </button>
+              ))}
+              {selectedOption && (
+                <div>
+                  <p>
+                    You selected {selectedOption}. This is{" "}
+                    {isCorrect ? "correct" : "incorrect"}.
+                  </p>
+                  {isCorrect && explanation && (
+                    <p>Explanation: {explanation}</p>
+                  )}
+                </div>
               )}
             </div>
           )}
         </div>
-      )}
-    </div>
+      </div>
+    </div>    
   );
 };
 

@@ -61,3 +61,11 @@ export const quizNetworkColumns = [
     width: 700,
   },
 ];
+
+export const learningColumns = [
+  { field: 'id', headerName: 'ID', width: 90 },
+  { field: 'title', headerName: 'Title', width: 150 },
+  { field: 'description', headerName: 'Description', width: 300 },
+  { field: 'content', headerName: 'Content', width: 300 },
+  // Add more columns as needed
+];

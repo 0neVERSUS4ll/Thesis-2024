@@ -164,3 +164,30 @@ export const topologyQuizInputs = [
     placeholder: "Paris is the capital of France",
   },
 ];
+
+export const learningMaterialInputs = [
+  {
+    id: "title",
+    label: "Title",
+    type: "text",
+    placeholder: "Introduction to React",
+  },
+  {
+    id: "description",
+    label: "Description",
+    type: "text",
+    placeholder: "This is an introduction to React",
+  },
+  {
+    id: "category",
+    label: "Category",
+    type: "text",
+    placeholder: "Programming",
+  },
+  {
+    id: "content",
+    label: "Content",
+    type: "textarea",
+    placeholder: "This is the content of the learning material",
+  },
+];

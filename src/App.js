@@ -4,7 +4,7 @@ import List from "./pages/list/List";
 import Single from "./pages/single/Single";
 import New from "./pages/new/New";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { userInputs, quizInputs, topologyQuizInputs } from "./formSource";
+import { userInputs, quizInputs, topologyQuizInputs, learningMaterialInputs } from "./formSource";
 import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
@@ -20,6 +20,7 @@ import ViewTopologyQuiz from "./pages/viewTopologyquizza/ViewTopologyQuiz";
 import UpdateQuiz from "./pages/editQuiz/EditQuiz";
 import UpdateTopologyQuiz from "./pages/editTopologyQuiz/EditTopologyQuiz";
 import ListPerformance from "./pages/listPerformance/ListPerformance";
+import NewLearningMat from "./pages/newLearningMaterial/NewLearningMat";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -45,6 +46,8 @@ function App() {
                 </RequireAuth>
               }
             />
+
+
             <Route path="users">
               <Route
                 index
@@ -71,6 +74,8 @@ function App() {
                 }
               />
             </Route>
+
+
             <Route path="learning">
               <Route
                 index
@@ -80,7 +85,25 @@ function App() {
                   </RequireAuth>
                 }
               />
+              <Route
+                path="view/:learningId"
+                element={
+                  <RequireAuth>
+                    <Single />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="new"
+                element={
+                  <RequireAuth>
+                    <NewLearningMat inputs={learningMaterialInputs} title="Add New Learning" />
+                  </RequireAuth>
+                }
+              />
             </Route>
+
+
             <Route path="quizes">
               <Route
                 index
@@ -115,6 +138,8 @@ function App() {
                 }
               />
             </Route>
+
+
             <Route path="topologyQuizes">
               <Route
                 index
@@ -149,6 +174,8 @@ function App() {
                 }
               />
             </Route>
+
+
             <Route path="quizPerformance">
               <Route
                 index
