@@ -21,6 +21,8 @@ import UpdateQuiz from "./pages/editQuiz/EditQuiz";
 import UpdateTopologyQuiz from "./pages/editTopologyQuiz/EditTopologyQuiz";
 import ListPerformance from "./pages/listPerformance/ListPerformance";
 import NewLearningMat from "./pages/newLearningMaterial/NewLearningMat";
+import ViewLearning from "./pages/viewLearning/ViewLearning";
+import EditLearningMat from "./pages/editLearning/EditLearningMat";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -89,7 +91,7 @@ function App() {
                 path="view/:learningId"
                 element={
                   <RequireAuth>
-                    <Single />
+                    <ViewLearning />
                   </RequireAuth>
                 }
               />
@@ -98,6 +100,14 @@ function App() {
                 element={
                   <RequireAuth>
                     <NewLearningMat inputs={learningMaterialInputs} title="Add New Learning" />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="edit/:learningId"
+                element={
+                  <RequireAuth>
+                    <EditLearningMat inputs={learningMaterialInputs} title="Edit Learning" />
                   </RequireAuth>
                 }
               />

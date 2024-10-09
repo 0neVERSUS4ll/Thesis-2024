@@ -54,6 +54,9 @@ const LearningTable = () => {
                                 <div className="deleteButton" onClick={() => handleDelete(params.row.id)}>
                                     Delete
                                 </div>
+                                <Link to={`/learning/edit/${params.row.id}`} className="editButton" id="edit-button" style={{textDecoration: "none"}}>
+                                    Edit
+                                </Link>
                             </>
                         ) : null}
                         <Link to={`/learning/view/${params.row.id}`} className="viewButton" style={{textDecoration: "none"}}>
