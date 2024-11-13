@@ -71,18 +71,19 @@ const Sidebar = () => {
                 <PersonOutlineIcon className="icon" />
                 <span>Users</span>
               </li>
-            </Link><Link to="/learning" style={{ textDecoration: "none" }}>
-                <li>
-                  <CreditCardIcon className="icon" />
-                  <span>Learning</span>
-                </li>
-              </Link></>          
+            </Link></>          
           ) : (
             <li>
               <LockIcon className="icon" />
             <span>No Access</span>
           </li>
           )}
+          <Link to="/learning" style={{ textDecoration: "none" }}>
+                <li>
+                  <CreditCardIcon className="icon" />
+                  <span>Learning</span>
+                </li>
+          </Link>
           <Link to="/quizes" style={{ textDecoration: "none" }}>
             <li>
               <HubIcon className="icon" />
