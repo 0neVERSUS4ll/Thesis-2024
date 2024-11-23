@@ -1,17 +1,18 @@
 import { useState } from "react";
 import "./register.scss";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase";
+import { auth, db } from "../../firebase";
 import { useNavigate, Link } from "react-router-dom";
+import { setDoc, doc } from "firebase/firestore";
 
 const Register = () => {
   const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const navitage = useNavigate()
+  const navigate = useNavigate();
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
 
     if (password.length < 6) {
@@ -25,16 +26,33 @@ const Register = () => {
       return;
     }
 
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        alert("successfully created");
-        setError("");
-        navitage("/login")
-      })
-      .catch((error) => {
-        setError("Failed to create an account. Please try again.");
+    // createUserWithEmailAndPassword(auth, email, password)
+    //   .then((userCredential) => {
+    //     const user = userCredential.user;
+    //     alert("successfully created");
+    //     setError("");
+    //     navitage("/login")
+    //   })
+    //   .catch((error) => {
+    //     setError("Failed to create an account. Please try again.");
+    //   });
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      await setDoc(doc(db, "users", user.uid), {
+        email: user.email,
+        uid: user.uid,
       });
+
+      alert("Successfully created");
+      setError("");
+      navigate("/login");
+    } catch (error) {
+      setError("Failed to create an account. Please try again.");
+    }
+
   };
 
 return (
