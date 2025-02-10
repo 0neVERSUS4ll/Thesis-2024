@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
   collection,
-  // getDocs,
   deleteDoc,
   doc,
   onSnapshot,
@@ -16,22 +15,6 @@ const Datatable = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    // const fetchData = async () => {
-    //   let list = [];
-    //   try {
-    //     const querySnapshot = await getDocs(collection(db, "users"));
-    //     querySnapshot.forEach((doc) => {
-    //       list.push({ id: doc.id, ...doc.data() });
-    //     });
-    //     setData(list);
-    //     console.log(list);
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // };
-    // fetchData();
-
-    // LISTEN (REALTIME)
     const unsub = onSnapshot(
       collection(db, "users"),
       (snapShot) => {
@@ -68,7 +51,7 @@ const Datatable = () => {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <Link to="/users/test" style={{ textDecoration: "none" }}>
+            <Link to={`/users/${params.row.id}`} style={{ textDecoration: "none" }}>
               <div className="viewButton">View</div>
             </Link>
             <div
@@ -82,6 +65,7 @@ const Datatable = () => {
       },
     },
   ];
+
   return (
     <div className="datatable">
       <div className="datatableTitle">
